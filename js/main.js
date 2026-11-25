@@ -33,13 +33,13 @@ class Seq{
 }
 
 /* ---------- sound (starts on the first touch, click or key) ---------- */
-const snd={on:true,touched:false,music:new Audio('audio/music.mp3'),rain:new Audio('audio/rain.mp3'),door:new Audio('audio/door.mp3'),sw:new Audio('audio/switch.mp3'),keys:new Audio('audio/keys.mp3')};
-snd.music.loop=true;snd.rain.loop=true;snd.music.volume=.07;snd.rain.volume=0;snd.rainT=0;snd.door.volume=.6;snd.sw.volume=.4;snd.keys.volume=.6;
-[snd.music,snd.rain,snd.door,snd.sw,snd.keys].forEach(a=>a.preload='auto');
+const snd={on:true,touched:false,music:new Audio('audio/music.mp3'),door:new Audio('audio/door.mp3'),sw:new Audio('audio/switch.mp3'),keys:new Audio('audio/keys.mp3')};
+snd.music.loop=true;snd.music.volume=.05;snd.door.volume=.4;snd.sw.volume=.3;snd.keys.volume=.4;
+[snd.music,snd.door,snd.sw,snd.keys].forEach(a=>a.preload='auto');
 snd.play=a=>{if(!snd.on)return;try{a.currentTime=0;a.play().catch(()=>{})}catch(e){}};
 const sBtn=$('#sndBtn');
 const startBed=()=>{try{return snd.music.play()||Promise.resolve()}catch(e){return Promise.reject(e)}};
-function setSound(on){snd.on=on;sBtn.setAttribute('aria-pressed',on);try{if(on)startBed().catch(()=>{});else{snd.music.pause();snd.rain.pause()}}catch(e){}}
+function setSound(on){snd.on=on;sBtn.setAttribute('aria-pressed',on);try{if(on)startBed().catch(()=>{});else{snd.music.pause()}}catch(e){}}
 sBtn.addEventListener('click',e=>{e.stopPropagation();snd.touched=true;setSound(!snd.on)});
 sBtn.setAttribute('aria-pressed','true');
 // Browsers only allow sound after a tap, click or key press, so the music starts the moment the visitor first touches the page.
@@ -50,13 +50,7 @@ function unlockAudio(){if(unlocked)return;unlocked=true;
   if(snd.on)startBed().catch(()=>{})}
 const tryMusic=()=>{if(snd.on&&snd.music.paused)startBed().catch(()=>{})};
 ['pointerdown','keydown','touchend','click'].forEach(t=>addEventListener(t,()=>{unlockAudio();tryMusic()},{passive:true}));
-// rain only under the dark moments: the dark process steps and the night footer, and only just audible
-const _pr=$('#process'),_tw=$('#tower');
-setInterval(()=>{const inV=el=>{const r=el.getBoundingClientRect();return r.top<innerHeight*.6&&r.bottom>innerHeight*.4};
-  snd.rainT=(snd.on&&((inV(_pr)&&psIdx>=3)||inV(_tw)))?.03:0;
-  const v=snd.rain.volume,n=v+(snd.rainT-v)*.12;snd.rain.volume=Math.max(0,Math.min(1,Math.abs(n-snd.rainT)<.002?snd.rainT:n));
-  if(snd.rain.volume>0&&snd.rain.paused&&snd.on)snd.rain.play().catch(()=>{});else if(snd.rain.volume===0&&!snd.rain.paused)snd.rain.pause()},120);
-document.addEventListener('visibilitychange',()=>{if(document.hidden){snd.music.pause();snd.rain.pause()}else if(snd.on)startBed().catch(()=>{})});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){snd.music.pause()}else if(snd.on)startBed().catch(()=>{})});
 
 /* ---------- sequences ---------- */
 const doorSeq=new Seq($('#cDoor'),[{name:'door',n:127}]);
