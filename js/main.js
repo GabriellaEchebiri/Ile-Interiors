@@ -34,15 +34,15 @@ class Seq{
 
 /* ---------- sound (starts on the first touch, click or key) ---------- */
 const snd={on:true,touched:false,music:new Audio('audio/music.mp3'),rain:new Audio('audio/rain.mp3'),door:new Audio('audio/door.mp3'),sw:new Audio('audio/switch.mp3'),keys:new Audio('audio/keys.mp3')};
-snd.music.loop=true;snd.rain.loop=true;snd.music.volume=.3;snd.rain.volume=.22;snd.door.volume=.9;snd.sw.volume=.55;snd.keys.volume=.9;
+snd.music.loop=true;snd.rain.loop=true;snd.music.volume=.07;snd.rain.volume=0;snd.rainT=0;snd.door.volume=.6;snd.sw.volume=.4;snd.keys.volume=.6;
 [snd.music,snd.rain,snd.door,snd.sw,snd.keys].forEach(a=>a.preload='auto');
 snd.play=a=>{if(!snd.on)return;try{a.currentTime=0;a.play().catch(()=>{})}catch(e){}};
 const sBtn=$('#sndBtn');
-const startBed=()=>{try{const a=snd.music.play(),b=snd.rain.play();b&&b.catch(()=>{});return a||Promise.resolve()}catch(e){return Promise.reject(e)}};
+const startBed=()=>{try{return snd.music.play()||Promise.resolve()}catch(e){return Promise.reject(e)}};
 function setSound(on){snd.on=on;sBtn.setAttribute('aria-pressed',on);try{if(on)startBed().catch(()=>{});else{snd.music.pause();snd.rain.pause()}}catch(e){}}
 sBtn.addEventListener('click',e=>{e.stopPropagation();snd.touched=true;setSound(!snd.on)});
 sBtn.setAttribute('aria-pressed','true');
-// Browsers only allow sound after a tap, click or key. The lift asks for one ("Tap to come in") so the music plays from the very first screen.
+// Browsers only allow sound after a tap, click or key press, so the music starts the moment the visitor first touches the page.
 let unlocked=false;
 function unlockAudio(){if(unlocked)return;unlocked=true;
   // iOS needs every sound touched once inside a tap before it may play later
@@ -50,6 +50,12 @@ function unlockAudio(){if(unlocked)return;unlocked=true;
   if(snd.on)startBed().catch(()=>{})}
 const tryMusic=()=>{if(snd.on&&snd.music.paused)startBed().catch(()=>{})};
 ['pointerdown','keydown','touchend','click'].forEach(t=>addEventListener(t,()=>{unlockAudio();tryMusic()},{passive:true}));
+// rain only under the dark moments: the dark process steps and the night footer, and only just audible
+const _pr=$('#process'),_tw=$('#tower');
+setInterval(()=>{const inV=el=>{const r=el.getBoundingClientRect();return r.top<innerHeight*.6&&r.bottom>innerHeight*.4};
+  snd.rainT=(snd.on&&((inV(_pr)&&psIdx>=3)||inV(_tw)))?.03:0;
+  const v=snd.rain.volume,n=v+(snd.rainT-v)*.12;snd.rain.volume=Math.max(0,Math.min(1,Math.abs(n-snd.rainT)<.002?snd.rainT:n));
+  if(snd.rain.volume>0&&snd.rain.paused&&snd.on)snd.rain.play().catch(()=>{});else if(snd.rain.volume===0&&!snd.rain.paused)snd.rain.pause()},120);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){snd.music.pause();snd.rain.pause()}else if(snd.on)startBed().catch(()=>{})});
 
 /* ---------- sequences ---------- */
@@ -229,7 +235,7 @@ function frame(){
   if(smooth){const d=target-cur;ours=true;if(Math.abs(d)>.4){cur+=d*.09;scrollTo(0,cur)}else if(cur!==target){cur=target;scrollTo(0,cur)}ours=false}
   const y=scrollY;vel+=((y-lastY)-vel)*.15;lastY=y;const g=geom();
 
-  if(vis(heroEl)){const p=prog(heroEl);doorSeq.draw(easeOut(clamp(p/.4)));snd.rain.volume=.22-.15*clamp(p/.4);
+  if(vis(heroEl)){const p=prog(heroEl);doorSeq.draw(easeOut(clamp(p/.4)));
     const f=clamp(p/.07);heroCopy.style.opacity=1-f;heroCopy.style.transform=`translateY(${-f*50}px)`;
     push.style.transform=`scale(${1+.22*ease(clamp((p-.38)/.62))})`;
     scrim.style.opacity=clamp((p-.42)/.08);
@@ -279,15 +285,14 @@ PIECES.forEach(p=>loadImg('cut/'+p.c));
 const doorP=Promise.all([0,1,2,3,4,5].map(s=>doorSeq.load(s).then(()=>{dp+=1/6;upd()})));
 // key-drop when the closing scene arrives
 if('IntersectionObserver' in window){let kd=false;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!kd){kd=true;setTimeout(()=>snd.play(snd.keys),500)}else if(!e.isIntersecting&&e.boundingClientRect.top>0)kd=false}),{threshold:.35}).observe($('#cta'))}
-let ready=false,opened=false;const T0=performance.now(),MIN=1300;
+let ready=false;const T0=performance.now(),MIN=1300;
 function arrive(){if(ready)return;ready=true;onResize();doorSeq.draw(0,true);
   const wait=Math.max(0,MIN-(performance.now()-T0));
   // let the floors finish climbing, pause on the name, then open
   let f=+(floorEl.textContent)||0;const climb=setInterval(()=>{f=Math.min(12,f+1);floorEl.textContent=String(f).padStart(2,'0');if(f>=12)clearInterval(climb)},Math.max(30,wait/14));
-  const open=()=>{if(opened)return;opened=true;pre.classList.add('open');document.body.classList.remove('loading');locked=false;unlockAudio();tryMusic();snd.play(snd.door);
-    setTimeout(()=>document.body.classList.add('in'),650);setTimeout(()=>pre.classList.add('done'),1550)};
-  // try autoplay; if the browser refuses, show the tap prompt and open on the first tap/click/key
-  setTimeout(()=>{startBed().then(()=>open()).catch(()=>{const g=$('#enter');if(g){g.hidden=false;pre.classList.add('wait');g.focus({preventScroll:true});g.addEventListener('click',open);addEventListener('keydown',open,{once:true})}else open()})},wait+250);
+  setTimeout(()=>{pre.classList.add('open');document.body.classList.remove('loading');locked=false;unlockAudio();tryMusic();snd.play(snd.door)},wait+250);
+  setTimeout(()=>document.body.classList.add('in'),wait+900);
+  setTimeout(()=>pre.classList.add('done'),wait+1800);
   doorSeq.loadAll(null,4);
   (async()=>{await shiftSeq.loadAll(null,4);for(const sc of scenes)if(sc.tour)await sc.tour.loadAll(null,4);await yoursSeq.loadAll(null,4);await towerSeq.loadAll(null,4);await finishSeq.loadAll(null,4)})()}
 Promise.all([imgP,doorP]).then(arrive);

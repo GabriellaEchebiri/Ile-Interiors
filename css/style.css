@@ -173,11 +173,6 @@ body.in .hero-sub{opacity:1}
 #pre.open .lift.r{transform:translateX(100%)}
 #pre.open .lift-ind{opacity:0}
 #pre.done{visibility:hidden;pointer-events:none}
-.enter{position:absolute;z-index:4;left:50%;bottom:clamp(48px,12vh,120px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 30px;border:0;border-radius:99px;background:var(--acc);color:var(--ink);font:700 16px/1 var(--disp);letter-spacing:.02em;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.45);animation:pulse 1.8s ease-in-out infinite;transition:opacity .4s}
-.enter[hidden]{display:none}
-.enter small{font:600 10px/1 var(--disp);letter-spacing:.22em;text-transform:uppercase;opacity:.65}
-@keyframes pulse{50%{transform:translateX(-50%) scale(1.05)}}
-#pre.open .enter{opacity:0;pointer-events:none}
 
 /* ---------- guestbook ---------- */
 #guest{height:560vh}
