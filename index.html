@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ILÉ Interiors — Homes, offices &amp; every space in between · Lagos</title>
+<meta name="description" content="ILÉ is a Lagos interior design studio led by Gabriella Echebiri. Homes, offices, restaurants and every space in between.">
+<meta name="theme-color" content="#16110D">
+<meta property="og:title" content="ILÉ Interiors — Come in.">
+<meta property="og:image" content="img/living.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316110D'/%3E%3Crect x='14' y='6' width='4' height='20' rx='1' fill='%23D7F04A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=Caveat:wght@500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="loading">
+<noscript><p style="padding:40px">This page needs JavaScript.</p></noscript>
+
+<!-- ARRIVAL: the lift brings you up, the doors open on their own -->
+<div id="pre" aria-hidden="true">
+  <div class="lift l"><span class="lift-word">ILÉ</span></div>
+  <div class="lift r"><span class="lift-word">ILÉ</span></div>
+  <div class="lift-ind"><i class="arrow"></i><span id="floor">G</span></div>
+</div>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#hero" data-top aria-label="ILÉ Interiors, back to top">ILÉ</a>
+  <div class="nav-r">
+    <button class="snd" id="sndBtn" aria-pressed="false" aria-label="Sound"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+    <button class="pill" data-book>Book a consultation</button>
+  </div>
+</header>
+
+<main>
+
+<section id="hero" aria-label="Come in">
+  <div class="stage">
+    <div class="push" id="push">
+      <img class="poster" src="img/door.webp" alt="A tall walnut front door lit by warm wall lights">
+      <canvas class="seq" id="cDoor" aria-hidden="true"></canvas>
+    </div>
+    <div class="vig"></div>
+    <div class="scrim" id="scrim"></div>
+    <div class="hero-copy" id="heroCopy">
+      <p class="eyebrow"><i></i>ILÉ Interiors, Lagos</p>
+      <h1 class="hero-h">Come <span class="it">in.</span></h1>
+      <p class="hero-sub">Interior design for homes, offices and every space in between.</p>
+    </div>
+    <div class="about" id="about">
+      <p class="ab-l">Every room has a feeling.</p>
+      <p class="ab-l">Most people can’t name it.</p>
+      <p class="ab-l ab-acc"><i>We build it.</i></p>
+      <p class="ab-f">ILÉ is a Lagos interior design studio led by <b>Gabriella Echebiri</b>. Homes, offices, restaurants and short-lets, taken from bare walls to the last cushion.</p>
+    </div>
+  </div>
+</section>
+
+<section id="shift" aria-label="One room, any purpose">
+  <div class="stage">
+    <img class="poster" src="img/empty.webp" alt="A bare, unfinished room">
+    <canvas class="seq" id="cShift" aria-hidden="true"></canvas>
+    <div class="shift-shade"></div>
+    <div class="shift-copy">
+      <div class="shift-word" id="shiftWord"><span>Bare</span><span>Home</span><span>Office</span></div>
+      <p class="shift-line" id="shiftLine">Every space starts here.</p>
+    </div>
+  </div>
+</section>
+
+<section id="doors" aria-label="Selected spaces"></section>
+
+<!-- THE GUESTBOOK -->
+<section id="guest" aria-label="What clients wrote">
+  <div class="stage gb-stage">
+    <img class="gb-img" id="gbImg" src="img/guestbook.webp" alt="An open guestbook on a walnut console by the door">
+    <div class="gb-pages" id="gbPages">
+      <div class="gb-e" style="left:300px;top:236px"><p class="gb-no">No. 209 &nbsp;·&nbsp; 3rd May</p><p class="gb-t">We walked in on handover day and my mother cried. The good kind. Thank you for giving us our Sundays back.</p><p class="gb-s">Tolu A.</p><p class="gb-p">Okafor Penthouse, Ikoyi</p></div>
+      <div class="gb-e" style="left:300px;top:540px"><p class="gb-no">No. 210 &nbsp;·&nbsp; 19th June</p><p class="gb-t">My team now fights to come into the office. I honestly didn’t know that was possible.</p><p class="gb-s">David Okoro</p><p class="gb-p">Kestrel Capital, Lekki</p></div>
+      <div class="gb-e" style="left:800px;top:236px"><p class="gb-no">No. 211 &nbsp;·&nbsp; 2nd August</p><p class="gb-t">Fully booked from week one. People come for the room as much as for the food.</p><p class="gb-s">Chika N.</p><p class="gb-p">Ember &amp; Oak, Victoria Island</p></div>
+      <div class="gb-e" style="left:800px;top:520px"><p class="gb-no">No. 212 &nbsp;·&nbsp; 14th October</p><p class="gb-t">Six months, zero stress, and a staircase our guests won’t stop photographing.</p><p class="gb-s">Mrs. Bello</p><p class="gb-p">Bello Residence, Banana Island</p></div>
+    </div>
+    <div class="gb-shade"></div>
+    <p class="gb-cap" id="gbCap"><b>212</b> doors opened.<br><i>This is what they wrote on the way out.</i></p>
+  </div>
+</section>
+
+<section id="process" aria-label="How a room gets made">
+  <div class="stage">
+    <canvas class="seq" id="cProc" aria-hidden="true"></canvas>
+    <div class="pshade" id="pshade"></div>
+    <div class="brief" id="brief">
+      <p class="note n1"><small>From the client brief</small>“<span class="u">Calm</span>, but not boring.”</p>
+      <p class="note n2">“Somewhere to read on <span class="u">Sunday afternoons</span>.”</p>
+      <p class="note n3">“Room for the <span class="u">whole family</span> at Christmas.”</p>
+      <p class="note n4">“Warm, like my grandmother’s parlour. <span class="u">But now.</span>”</p>
+    </div>
+    <div class="sw-layer" id="swLayer"></div>
+    <div class="phead" id="phead">
+      <div class="ph"><span>01</span><h3>Listen.</h3><p>It starts with what you tell us. How you live, what you love, what the room should feel like.</p></div>
+      <div class="ph"><span>02</span><h3>Draw.</h3><p>Then we draw it. Layout, light and flow, until it makes sense on paper.</p></div>
+      <div class="ph"><span>03</span><h3>Source.</h3><p>Every material is chosen by hand. Touched, compared, argued over.</p></div>
+      <div class="ph"><span>04</span><h3>Build.</h3><p>We run the site, the trades and the deliveries, so every choice lands exactly where it was drawn.</p></div>
+      <div class="ph"><span>05</span><h3>Move in.</h3><p>Then one afternoon, you open the door.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOURS: the door opens on an empty room, then it gets picked, piece by piece -->
+<section id="cta" class="dscene final" aria-label="Book a consultation">
+  <div class="ds lightwall" style="--w:#CDBB9C">
+    <canvas class="room" id="cRoom" aria-hidden="true"></canvas>
+    <div class="glow"></div>
+    <div class="wall"><div class="deco"><span class="dname">YOURS</span><i class="sc l"></i><i class="sc r"></i><div class="plaque"><small>Reserved</small><b>Your space</b><span>Anywhere in Lagos</span></div></div></div>
+    <div class="frame"></div><div class="leaf"></div>
+    <p class="knock">Yours is next.</p>
+    <div class="y-scrim" id="yScrim"></div>
+    <div class="y-label" id="yLabel"></div>
+    <div class="y-cuts" id="yCuts"></div>
+    <div class="cta-shade"></div>
+    <div class="cap cta-cap">
+      <h2 class="cta-h">Let’s build<br><i>yours.</i></h2>
+      <p class="cta-p">Homes, offices, restaurants, short-lets and show units across Lagos. Tell us what you’re picturing.</p>
+      <div class="cta-row">
+        <button class="btn acc" data-book>Book a consultation <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <a class="btn line" id="waLink" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER: pull back out of a home, across the street, to the whole lit tower -->
+<footer id="tower" aria-label="Footer">
+  <div class="stage">
+    <canvas class="seq" id="cTower" aria-hidden="true"></canvas>
+    <div class="tw-shade"></div>
+    <p class="tw-copy" id="twCopy">© 2026 ILÉ Interiors by Gabriella Echebiri</p>
+  </div>
+</footer>
+
+<!-- BOOKING: a sentence you finish -->
+<dialog id="book" aria-labelledby="bkT">
+  <form id="bkForm" method="dialog">
+    <div class="bk-top"><p class="bk-k" id="bkT">Book a consultation</p><button type="button" class="bk-x" id="bkX">Close <span aria-hidden="true">✕</span></button></div>
+    <p class="bk-s">
+      Hello ILÉ, I’m <label class="f"><span class="sr">Your name</span><input name="name" required autocomplete="name" placeholder="your name"></label>,
+      and I’d love you to design my <span class="pick" data-name="type" data-opts="home|office|restaurant|short-let|show unit"></span>
+      in <label class="f"><span class="sr">Area</span><input name="where" placeholder="Lekki, Ikoyi…"></label>,
+      for around <span class="pick" data-name="budget" data-opts="₦15M – ₦40M|₦5M – ₦15M|under ₦5M|₦40M and up|a number we can talk about"></span>.
+      <span class="bk-more">It should feel <label class="f"><span class="sr">How it should feel</span><input name="note" placeholder="calm, bold, like home…"></label>.</span>
+    </p>
+    <div class="bk-row">
+      <a class="btn acc" id="bkSend" href="#" target="_blank" rel="noopener">Send it on WhatsApp <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </form>
+</dialog>
+
+<script src="js/main.js"></script>
+</body>
+</html>
